@@ -17,7 +17,8 @@
 
         function index()
         {
-            if($this->input->post('filter'))
+            //Filter waktu dan kriteria
+            if($this->input->post('filter') && $this->input->post('kriteria'))
             {
                 $filter = $this->input->post('filter');
                 $tanggal = $this->input->post('tanggal');
@@ -34,23 +35,11 @@
                     }
                 }
                 $kriteria = $this->input->post('kriteria');
-                $project = $this->input->post('project');
-                $material = $this->input->post('material');
-                $mesin = $this->input->post('mesin');
-                $reported = $this->input->post('reported');
-                $status = $this->input->post('status');
-
-                if($kriteria == '1'){
-                    $data['laporan'] = $this->laporanProject($project);
-                }else if($kriteria == '2'){
-                    $data['laporan'] = $this->laporanMaterial($material);
-                }else if($kriteria == '3'){
-                    $data['laporan'] = $this->laporanMesin($mesin);
-                }else if($kriteria == '4'){
-                    $data['laporan'] = $this->laporanReported($reported);
-                }else if($kriteria == '5'){
-                    $data['laporan'] = $this->laporanStatus($status);
-                }
+                $project = $this->input->post('form_project');
+                $material = $this->input->post('form_material');
+                $mesin = $this->input->post('form_mesin');
+                $reported = $this->input->post('form_reported');
+                $status = $this->input->post('form_status');
 
                 if($filter == '1')
                 {
@@ -123,6 +112,100 @@
                 }
                 // echo count($data);
      
+                $data['judul'] = "S-INA | Contact List | Report";
+                $data['defect'] = $this->M_master->loadDefect();
+                $data['type'] = $this->M_master->loadType();
+                $data['periode'] = $this->M_master->loadPeriode();
+                $data['project'] = $this->M_master->loadProject();
+                $data['material'] = $this->M_master->loadMaterial();
+                $data['mesin'] = $this->M_master->loadMachine();
+                $data['reported'] = $this->M_master->loadKaryawan();
+                $this->load->view('Include/header', $data);
+                $this->load->view('Include/sidebar');
+                $this->load->view('Report/index');
+                $this->load->view('Include/footer');
+            }
+            //Filter waktu
+            else if($this->input->post('filter'))
+            {
+                $filter = $this->input->post('filter');
+                $tanggal = $this->input->post('tanggal');
+                $tgl1 = $this->input->post('tgl1');
+                $tgl2 = $this->input->post('tgl2');
+                $bulan = $this->input->post('bulan');
+                $tahun = date("Y");
+                $periode = $this->input->post('periode');
+                if ($periode !== ''){
+                    $result = $this->M_transaksi->getWaktu($periode);
+                    foreach ($result as $row){
+                        $tgl_awal = $row->tgl_periode1;
+                        $tgl_akhir = $row->tgl_periode2;
+                    }
+                }
+
+                if($filter == '1')
+                {                  
+                    $data['laporan'] = $this->laporanHarian($tanggal);
+                }
+                elseif($filter == '2')
+                {
+                    $data['laporan'] = $this->laporanMingguan($tgl1, $tgl2);
+                }
+                elseif($filter == '3')
+                {
+                    $data['laporan'] = $this->laporanBulan($bulan, $tahun);
+                }
+                elseif($filter == '4')
+                {
+                    $data['laporan'] = $this->laporanPeriode($tgl_awal, $tgl_akhir);
+                }
+                else
+                {
+                    $this->session->set_flashdata('error', 'Pilih Filter');
+                    redirect('Report', 'refresh');
+                }
+                // echo count($data);
+     
+                $data['judul'] = "S-INA | Contact List | Report";
+                $data['defect'] = $this->M_master->loadDefect();
+                $data['type'] = $this->M_master->loadType();
+                $data['periode'] = $this->M_master->loadPeriode();
+                $data['project'] = $this->M_master->loadProject();
+                $data['material'] = $this->M_master->loadMaterial();
+                $data['mesin'] = $this->M_master->loadMachine();
+                $data['reported'] = $this->M_master->loadKaryawan();
+                $this->load->view('Include/header', $data);
+                $this->load->view('Include/sidebar');
+                $this->load->view('Report/index');
+                $this->load->view('Include/footer');
+            }
+            //Filter kriteria
+            else if($this->input->post('kriteria'))
+            {
+                $kriteria = $this->input->post('kriteria');
+                $project = $this->input->post('form_project');
+                $material = $this->input->post('form_material');
+                $mesin = $this->input->post('form_mesin');
+                $reported = $this->input->post('form_reported');
+                $status = $this->input->post('form_status');
+
+                if($kriteria == '1'){
+                    $data['laporan'] = $this->laporanProject($project);
+                }else if($kriteria == '2'){
+                    $data['laporan'] = $this->laporanMaterial($material);
+                }else if($kriteria == '3'){
+                    $data['laporan'] = $this->laporanMesin($mesin);
+                }else if($kriteria == '4'){
+                    $data['laporan'] = $this->laporanReported($reported);
+                }else if($kriteria == '5'){
+                    $data['laporan'] = $this->laporanStatus($status);
+                }else
+                {
+                    $this->session->set_flashdata('error', 'Pilih Filter');
+                    redirect('Report', 'refresh');
+                }
+                // echo count($data);
+
                 $data['judul'] = "S-INA | Contact List | Report";
                 $data['defect'] = $this->M_master->loadDefect();
                 $data['type'] = $this->M_master->loadType();

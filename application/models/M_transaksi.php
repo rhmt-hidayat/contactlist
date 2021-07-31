@@ -433,7 +433,7 @@
             $this->db->join('karyawan as user1', 'transaksi.reported = user1.NIK', 'LEFT');
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
-            $this->db->group_by('transaksi.project', $project);
+            $this->db->GROUP_BY('transaksi.project', $project);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();

@@ -84,7 +84,7 @@
                                 </select>
                                 <a id="form-project">
                                     <label><i class="fas fa-project-diagram fas-fw"></i></label>
-                                    <select name="project">
+                                    <select name="form_project">
                                         <option value="">---Pilih Project---</option>
                                         <?php
                                             foreach($project as $pro)
@@ -98,14 +98,14 @@
                                 </a>
                                 <a id="form-material">
                                     <label><i class="fas fa-tasks fas-fw"></i></label>
-                                    <select name="project">
+                                    <select name="form_material">
                                         <option value="">---Pilih Material---</option>
                                         <?php
                                         //jika pilih project muncul material pake javascript
                                             foreach($material as $m)
                                             {
                                                 ?>
-                                                    <option value="<?php echo $m->id; ?>"><?php echo $m->kode_material; ?></option>
+                                                    <option value="<?php echo $m->kode_material; ?>"><?php echo $m->kode_material; ?></option>
                                                 <?php
                                             }
                                         ?>
@@ -113,7 +113,7 @@
                                 </a>
                                 <a id="form-mesin">
                                     <label><i class="fas fa-industry fas-fw"></i></label>
-                                    <select name="mesin">
+                                    <select name="form_mesin">
                                         <option value="">---Pilih Mesin---</option>
                                         <?php
                                             foreach($mesin as $me)
@@ -127,13 +127,13 @@
                                 </a>
                                 <a id="form-reported">
                                     <label><i class="fas fa-users fas-fw"></i></label>
-                                    <select name="reported">
+                                    <select name="form_reported">
                                         <option value="">---Pilih Reported---</option>
                                         <?php
                                             foreach($reported as $rp)
                                             {
                                                 ?>
-                                                    <option value="<?php echo $rp->id; ?>"><?php echo $rp->nama; ?></option>
+                                                    <option value="<?php echo $rp->NIK; ?>"><?php echo $rp->nama; ?></option>
                                                 <?php
                                             }
                                         ?>
@@ -141,7 +141,7 @@
                                 </a>
                                 <a id="form-status">
                                     <label><i class="fas fa-info fas-fw"></i></label>
-                                    <select name="status">
+                                    <select name="form_status">
                                         <option value="">---Pilih Status---</option>
                                         <option value="1">Open</option>
                                         <option value="2">On Progress</option>
@@ -267,7 +267,26 @@
                                                                             <td><?php echo $row->longterm; ?></td>
                                                                             <td><?php echo $row->namaKaryawan2; ?></td>
                                                                             <td><?php echo $row->finish; ?></td>
-                                                                            <td><?php echo $row->status; ?></td>
+                                                                            <td>
+                                                                            <?php 
+                                                                                if($row->status == '0')
+                                                                                {
+                                                                                    echo "<span class=\"badge badge-success\">Close</span>";
+                                                                                }
+                                                                                elseif($row->status == '1')
+                                                                                {
+                                                                                    echo "<span class=\"badge badge-dark\">Open</success>";
+                                                                                }
+                                                                                elseif($row->status == '2')
+                                                                                {
+                                                                                    echo "<span class=\"badge badge-warning\">On Progress</success>";
+                                                                                }
+                                                                                elseif($row->status == '3')
+                                                                                {
+                                                                                    echo "<span class=\"badge badge-info\">Monitoring</success>";
+                                                                                }
+                                                                            ?>
+                                                                            </td>
                                                                             <td><?php echo $row->namaKaryawan3; ?></td>
                                                                             <!-- <td>
                                                                                 <div class="btn-group">
