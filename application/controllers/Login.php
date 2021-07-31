@@ -52,8 +52,6 @@
             if($row)
             {
                 $verify = password_verify($password, $row->password);
-                // var_dump($verify);
-
                 if($verify)
                 {
                     if($remember)

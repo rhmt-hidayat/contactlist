@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-hover table-bordered" id="data1">
+                                        <table class="table table-striped table-hover table-bordered" id="example1">
                                             <thead>
                                                 <th>No.</th>
                                                 <th>Kode Abnormality Type</th>

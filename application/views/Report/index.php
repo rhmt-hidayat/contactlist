@@ -22,12 +22,13 @@
                         </div>
                         <div class="card-body">
                         <form method="POST" action="Report">
-                                <label>Laporan Berdasarkan</label>
+                            <label>Laporan Berdasarkan :</label>
                                 <select name="filter" id="filter">
                                     <option value="">---Pilih Filter---</option>
                                     <option value="1">Harian</option>
                                     <option value="2">Mingguan</option>
                                     <option value="3">Bulanan</option>
+                                    <option value="4">Periode </option>
                                 </select>
                                 <a id="form-tanggal" >
                                     <label><i class="fa fa-calendar fa-fw"></i></label>
@@ -58,10 +59,100 @@
                                         <option value="12">Desember</option>
                                     </select>
                                 </a>
+                                <a id="form-periode">
+                                    <label><i class="fa fa-calendar fa-fw"></i></label>
+                                    <select name="periode" >
+                                        <option value="">---Pilih Periode---</option>
+                                        <?php
+                                            foreach($periode as $pd)
+                                            {
+                                                ?>
+                                                    <option value="<?php echo $pd->id; ?>"><?php echo $pd->nama_periode; ?></option>
+                                                <?php
+                                            }
+                                        ?>
+                                    </select>
+                                </a><br>
+                                <label>Kriteria Berdasarkan :</label>
+                                <select name="kriteria" id="kriteria">
+                                    <option value="">---Pilih Kriteria---</option>
+                                    <option value="1">Project</option>
+                                    <option value="2">Material</option>
+                                    <option value="3">Mesin</option>
+                                    <option value="4">Reported By</option>
+                                    <option value="5">Status</option>
+                                </select>
+                                <a id="form-project">
+                                    <label><i class="fas fa-project-diagram fas-fw"></i></label>
+                                    <select name="project">
+                                        <option value="">---Pilih Project---</option>
+                                        <?php
+                                            foreach($project as $pro)
+                                            {
+                                                ?>
+                                                    <option value="<?php echo $pro->id; ?>"><?php echo $pro->nama_project; ?></option>
+                                                <?php
+                                            }
+                                        ?>
+                                    </select>
+                                </a>
+                                <a id="form-material">
+                                    <label><i class="fas fa-tasks fas-fw"></i></label>
+                                    <select name="project">
+                                        <option value="">---Pilih Material---</option>
+                                        <?php
+                                        //jika pilih project muncul material pake javascript
+                                            foreach($material as $m)
+                                            {
+                                                ?>
+                                                    <option value="<?php echo $m->id; ?>"><?php echo $m->kode_material; ?></option>
+                                                <?php
+                                            }
+                                        ?>
+                                    </select>
+                                </a>
+                                <a id="form-mesin">
+                                    <label><i class="fas fa-industry fas-fw"></i></label>
+                                    <select name="mesin">
+                                        <option value="">---Pilih Mesin---</option>
+                                        <?php
+                                            foreach($mesin as $me)
+                                            {
+                                                ?>
+                                                    <option value="<?php echo $me->id; ?>"><?php echo $me->no_mesin; ?></option>
+                                                <?php
+                                            }
+                                        ?>
+                                    </select>
+                                </a>
+                                <a id="form-reported">
+                                    <label><i class="fas fa-users fas-fw"></i></label>
+                                    <select name="reported">
+                                        <option value="">---Pilih Reported---</option>
+                                        <?php
+                                            foreach($reported as $rp)
+                                            {
+                                                ?>
+                                                    <option value="<?php echo $rp->id; ?>"><?php echo $rp->nama; ?></option>
+                                                <?php
+                                            }
+                                        ?>
+                                    </select>
+                                </a>
+                                <a id="form-status">
+                                    <label><i class="fas fa-info fas-fw"></i></label>
+                                    <select name="status">
+                                        <option value="">---Pilih Status---</option>
+                                        <option value="1">Open</option>
+                                        <option value="2">On Progress</option>
+                                        <option value="3">Monitoring</option>
+                                        <option value="0">Close</option>
+                                    </select>
+                                </a>
                                 <button type="submit" id="tampil" class="btn btn-success btn-sm" onclick="tampilkan">Cari <i class="fa fa-search fa-fw"></i></button>
                                 <!-- <a href="<?php echo base_url().'Report'; ?>">Hapus tabel</a> -->
                                 <br>
-                            </form>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -81,7 +172,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-hover table-bordered" id="data1">
+                                                <table class="table table-striped table-hover table-bordered" style="width:100%" id="example">
                                                     <thead>
                                                         <th style="vertical-align: middle; text-align: center;">No.</th>
                                                         <th style="vertical-align: middle; text-align: center;">Doc. No.</th>
@@ -97,7 +188,7 @@
                                                         <th style="vertical-align: middle; text-align: center;">Abnormality Type</th>
                                                         <th style="vertical-align: middle; text-align: center;">Defect</th>
                                                         <th style="vertical-align: middle; text-align: center;">Description</th>
-                                                        <th style="vertical-align: middle; text-align: center; background-color:red;">Root Couse</th>
+                                                        <th style="vertical-align: middle; text-align: center; background-color:red;" width="600px">Root Couse</th>
                                                         <th style="vertical-align: middle; text-align: center;">Temporary Measure</th>
                                                         <th style="vertical-align: middle; text-align: center;">Stop Time</th>
                                                         <th style="vertical-align: middle; text-align: center; background-color:aqua;">Qty Sortir</th>
@@ -105,7 +196,7 @@
                                                         <th style="vertical-align: middle; text-align: center; background-color:blue;">Qty NG</th>
                                                         <th style="vertical-align: middle; text-align: center;">Working Hour</th>
                                                         <th style="vertical-align: middle; text-align: center;">Result</th>
-                                                        <th style="vertical-align: middle; text-align: center; background-color:red;">Long  Term Measure</th>
+                                                        <th style="vertical-align: middle; text-align: center; background-color:red;"width="600px" >Long  Term Measure</th>
                                                         <th style="vertical-align: middle; text-align: center;">Improvement Responsibility Person</th>
                                                         <th style="vertical-align: middle; text-align: center;">Required Finish Time</th>
                                                         <th style="vertical-align: middle; text-align: center;">Status</th>
@@ -130,7 +221,19 @@
                                                                             <td><?php echo $row->lot_no; ?></td>
                                                                             <td><?php echo $row->total_product; ?></td>
                                                                             <td><?php echo $row->defect_qty; ?></td>
-                                                                            <td><?php echo $row->abn_type; ?></td>
+                                                                            <td>
+                                                                            <?php 
+                                                                                foreach($type as $tp)
+                                                                                {
+                                                                                    $id = $tp->id;
+                                                                                    $namaType = $tp->nama_type;
+                                                                                    if($row->abn_type == $id)
+                                                                                    {
+                                                                                        echo $namaType;
+                                                                                    }
+                                                                                }   
+                                                                            ?>
+                                                                            </td>
                                                                             <td>
                                                                             <?php
                                                                                 $data = str_replace('"','',$row->defect);
@@ -192,30 +295,59 @@
         </div>
 
         <script>
-        $(document).ready(function(){
-            $('.datepicker').datepicker({
-                format: 'yyyy/dd/mm'
-            });
-            $('#form-tanggal, #form-bulan, #form-minggu').hide();
-            $('#filter').change(function(){
-                if($(this).val() == '1'){
-                    $('#form-bulan, #form-minggu').hide();
-                    $('#form-tanggal').show();
-                }else if($(this).val() == '2'){
-                    $('#form-tanggal, #form-bulan').hide();
-                    $('#form-minggu').show();
-                }else{
-                    $('#form-tanggal, #form-minggu').hide();
-                    $('#form-bulan').show();
-                }
-                // $('#form-tanggal input, #form-bulan select, #form-minggu select').val('');
-                // $('#data1').hide();  
+            $(document).ready(function() {
+            $('#example').DataTable( {
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'csv', 'excel'
+                    ]
+                } );
+            } );
+            $(document).ready(function(){
+                $('.datepicker').datepicker({
+                    format: 'yyyy/dd/mm'
+                });
+                $('#form-tanggal, #form-bulan, #form-minggu, #form-periode').hide();
+                $('#filter').change(function(){
+                    if($(this).val() == '1'){
+                        $('#form-bulan, #form-minggu, #form-periode').hide();
+                        $('#form-tanggal').show();
+                    }else if($(this).val() == '2'){
+                        $('#form-tanggal, #form-bulan, #form-periode').hide();
+                        $('#form-minggu').show();
+                    }else if($(this).val() == '3'){
+                        $('#form-tanggal, #form-minggu, #form-periode').hide();
+                        $('#form-bulan').show();
+                    }else{
+                        $('#form-tanggal, #form-minggu, #form-bulan').hide();
+                        $('#form-periode').show();
+                    }
+                    // $('#form-tanggal input, #form-bulan select, #form-minggu select').val('');
+                    // $('#data1').hide();  
+                })
+                $('#form-project, #form-material, #form-mesin, #form-reported, #form-status').hide();
+                $('#kriteria').change(function(){
+                    if($(this).val() == '1'){
+                        $('#form-material, #form-mesin, #form-reported, #form-status').hide();
+                        $('#form-project').show();
+                    }else if($(this).val() == '2'){
+                        $('#form-project, #form-mesin, #form-reported, #form-status').hide();
+                        $('#form-material').show();
+                    }else if($(this).val() == '3'){
+                        $('#form-material, #form-project, #form-reported, #form-status').hide();
+                        $('#form-mesin').show();
+                    }else if($(this).val() == '4'){
+                        $('#form-material, #form-mesin, #form-project, #form-status').hide();
+                        $('#form-reported').show();
+                    }else if($(this).val() == '5'){
+                        $('#form-material, #form-mesin, #form-reported, #form-project').hide();
+                        $('#form-status').show();
+                    }
+                })
             })
-        })
-		
-		function tampilkan(){
-			var filter=document.getElementById("tampil").value;
-            Window.document.getElementById("data1").innerHTML=filter;
-		}
-		
+            
+            function tampilkan(){
+                var filter=document.getElementById("tampil").value;
+                Window.document.getElementById("data1").innerHTML=filter;
+            }	
         </script>

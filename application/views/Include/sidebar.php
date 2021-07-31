@@ -36,7 +36,7 @@
                         <li class="nav-header">REPORTS</li>
                         <li class="nav-item">
                             <a href="<?php echo base_url().'Report'; ?>" class="nav-link">
-                                <i class="nav-icon fas fa-tasks"></i>
+                                <i class="nav-icon fas fa-chart-line"></i>
                                 <p>
                                     Laporan Contact List
                                 </p>
@@ -47,6 +47,14 @@
                             {
                                 ?>
                                     <li class="nav-header">MASTER DATA</li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url().'Periode'; ?>" class="nav-link">
+                                            <i class="nav-icon fas fa-calendar-check"></i>
+                                            <p>
+                                                Periode
+                                            </p>
+                                        </a>
+                                    </li>
                                     <li class="nav-item">
                                         <a href="<?php echo base_url().'Karyawan'; ?>" class="nav-link">
                                             <i class="nav-icon fas fa-user-alt"></i>

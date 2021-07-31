@@ -71,7 +71,20 @@
                                                         <option value="3">Shift 3</option>
                                                     </select>
                                                 </div>
-
+                                                <div class="form-group">
+                                                    <label class="control-label">Machine No.</label>
+                                                    <select name="mesin" class="form-control select2bs4" required>
+                                                        <option value="">-- Select Machine --</option>
+                                                        <?php
+                                                            foreach($mesin as $mesin)
+                                                            {
+                                                                ?>
+                                                                    <option value="<?php echo $mesin->id; ?>"><?php echo $mesin->no_mesin; ?></option>
+                                                                <?php
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Project</label>
                                                     <select name="project" id="project" class="form-control select2bs4" required>
@@ -91,20 +104,6 @@
                                                     <select name="material" id="material" class="select2bs4 form-control" required>
                                                         <option value="">-- Select Material --</option>
                                                         <option value=""></option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label">Machine No.</label>
-                                                    <select name="mesin" class="form-control select2bs4" required>
-                                                        <option value="">-- Select Machine --</option>
-                                                        <?php
-                                                            foreach($mesin as $mesin)
-                                                            {
-                                                                ?>
-                                                                    <option value="<?php echo $mesin->id; ?>"><?php echo $mesin->no_mesin; ?></option>
-                                                                <?php
-                                                            }
-                                                        ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group" id="only-number">
@@ -190,11 +189,11 @@
                                                         </div>
                                                         <div class="col-4">
                                                             <label class="control-label">Working Hour</label>
-                                                            <input type="number" class="form-control" required name="working_hour">
+                                                            <input type="float" class="form-control" required name="working_hour">
                                                         </div>
                                                         <div class="col-4">
                                                             <label class="control-label">Result</label>
-                                                            <input type="number" class="form-control" required name="result">
+                                                            <input type="text" class="form-control" required name="result">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -225,18 +224,32 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Verified By</label>
-                                                    <select name="verified" class="form-control select2bs4" required>
-                                                        <option value="">-- Select Data --</option>
-                                                        <?php
-                                                            foreach($karyawan as $kry)
-                                                            {
-                                                                ?>
-                                                                    <option value="<?php echo $kry->NIK ?>"><?php echo $kry->NIK." - ".$kry->nama; ?></option>
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <label class="control-label">Verified By</label>
+                                                            <select name="verified" class="form-control select2bs4" required>
+                                                                <option value="">-- Select Data --</option>
                                                                 <?php
-                                                            }
-                                                        ?>
-                                                    </select>
+                                                                    foreach($karyawan as $kry)
+                                                                    {
+                                                                        ?>
+                                                                            <option value="<?php echo $kry->NIK ?>"><?php echo $kry->NIK." - ".$kry->nama; ?></option>
+                                                                        <?php
+                                                                    }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-4">
+                                                        <label class="control-label">Status</label>
+                                                        <select name="status" class="form-control select2bs4" required>
+                                                            <option value="">-- Select Status --</option>
+                                                            <option value="1">Open</option>
+                                                            <option value="2">On Progress</option>
+                                                            <option value="3">Monitoring</option>
+                                                            <option value="0">Close</option>
+                                                        </select>
+                                                        </div>
+                                                    </div>                       
                                                 </div>
                                             </div>
                                         </div>

@@ -72,6 +72,12 @@
             return $this->db->get('abnormality_type')->result();
         }
 
+        function loadPeriode()
+        {
+            $this->db->order_by('id', 'ASC');
+            return $this->db->get('periode')->result();
+        }
+
         function loadTransaksi()
         {
             $this->db->select('transaksi.*, mesin.no_mesin as namaMesin, project.nama_project as namaProject, user1.nama as namaKaryawan1, user2.nama as namaKaryawan2, user3.nama as namaKaryawan3');

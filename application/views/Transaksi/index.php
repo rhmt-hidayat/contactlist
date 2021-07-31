@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-hover table-bordered" id="data1">
+                                        <table class="table table-striped table-hover table-bordered" id="example">
                                             <thead>
                                                 <th style="vertical-align: middle; text-align: center;">No.</th>
                                                 <th style="vertical-align: middle; text-align: center;">Doc. No.</th>
@@ -50,7 +50,7 @@
                                                 <th style="vertical-align: middle; text-align: center; background-color:blue;">Qty NG</th>
                                                 <th style="vertical-align: middle; text-align: center;">Working Hour</th>
                                                 <th style="vertical-align: middle; text-align: center;">Result</th>
-                                                <th style="vertical-align: middle; text-align: center; background-color:red;">Long  Term Measure</th>
+                                                <th style="vertical-align: middle; text-align: center; background-color:red;">Long Term Measure</th>
                                                 <th style="vertical-align: middle; text-align: center;">Improvement Responsibility Person</th>
                                                 <th style="vertical-align: middle; text-align: center;">Required Finish Time</th>
                                                 <th style="vertical-align: middle; text-align: center;">Status</th>
@@ -75,7 +75,19 @@
                                                                 <td><?php echo $row->lot_no; ?></td>
                                                                 <td><?php echo $row->total_product; ?></td>
                                                                 <td><?php echo $row->defect_qty; ?></td>
-                                                                <td><?php echo $row->abn_type; ?></td>
+                                                                <td>
+                                                                    <?php 
+                                                                        foreach($type as $tp)
+                                                                        {
+                                                                            $id = $tp->id;
+                                                                            $namaType = $tp->nama_type;
+                                                                            if($row->abn_type == $id)
+                                                                            {
+                                                                                echo $namaType;
+                                                                            }
+                                                                        }   
+                                                                    ?>
+                                                                </td>
                                                                 <td>
                                                                 <?php
                                                                     $data = str_replace('"','',$row->defect);
@@ -109,7 +121,26 @@
                                                                 <td><?php echo $row->longterm; ?></td>
                                                                 <td><?php echo $row->namaKaryawan2; ?></td>
                                                                 <td><?php echo $row->finish; ?></td>
-                                                                <td><?php echo $row->status; ?></td>
+                                                                <td>
+                                                                    <?php 
+                                                                        if($row->status == '0')
+                                                                        {
+                                                                            echo "<span class=\"badge badge-success\">Close</span>";
+                                                                        }
+                                                                        elseif($row->status == '1')
+                                                                        {
+                                                                            echo "<span class=\"badge badge-dark\">Open</success>";
+                                                                        }
+                                                                        elseif($row->status == '2')
+                                                                        {
+                                                                            echo "<span class=\"badge badge-warning\">On Progress</success>";
+                                                                        }
+                                                                        elseif($row->status == '3')
+                                                                        {
+                                                                            echo "<span class=\"badge badge-info\">Monitoring</success>";
+                                                                        }
+                                                                    ?>
+                                                                </td>
                                                                 <td><?php echo $row->namaKaryawan3; ?></td>
                                                                 <td>
                                                                     <div class="btn-group">
@@ -138,3 +169,14 @@
         <?php
             $this->load->view('Transaksi/modal');
         ?>
+
+        <script>
+            $(document).ready(function() {
+                $('#example').DataTable( {
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'csv', 'excel'
+                    ]
+                } );
+            } );
+        </script>

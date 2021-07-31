@@ -21,18 +21,22 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="card">
-                                <form method="POST" action="<?php echo base_url('Project/insert') ?>">
+                                <form method="POST" action="<?php echo base_url('Periode/insert') ?>">
                                     <div class="card-header">
-                                        .:: Add New Project ::.
+                                        .:: Add New Tanggal Periode ::.
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label class="control-label">Kode Project</label>
-                                            <input type="text" name="kode" class="form-control" required placeholder="Code Name" style="text-transform: capitalize;" maxlength="150" autocomplete="off">
+                                            <label class="control-label">Nama Periode</label>
+                                            <input type="text" name="nama" class="form-control" required placeholder="Nama Periode" maxlength="150" autocomplete="off">
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Nama Project</label>
-                                            <input type="text" name="nama" class="form-control" required placeholder="Project Name" maxlength="150" autocomplete="off">
+                                            <label class="control-label">Tanggal Periode 1</label>
+                                            <input type="date" name="tgl_periode1" class="form-control datepicker-days" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Tanggal Periode 2</label>
+                                            <input type="date" name="tgl_periode2" class="form-control datepicker-days" required>
                                         </div>
                                     </div>
                                     <div class="card-footer">
@@ -45,15 +49,16 @@
                         <div class="col-8">
                             <div class="card">
                                 <div class="card-header">
-                                    .:: Project List ::.
+                                    .:: Tanggal Periode List ::.
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover table-bordered" id="example1">
                                             <thead>
                                                 <th>No.</th>
-                                                <th>Kode Project</th>
-                                                <th>Nama Project</th>
+                                                <th>Nama Periode</th>
+                                                <th>Tanggal Periode 1</th>
+                                                <th>Tanggal Periode 2</th>
                                                 <th>#</th>
                                             </thead>
                                             <tbody>
@@ -64,12 +69,12 @@
                                                         ?>
                                                             <tr>
                                                                 <td><?php echo $no++; ?></td>
-                                                                <td><?php echo $row->kode_project; ?></td>
-                                                                <td><?php echo $row->nama_project; ?></td>
-                                                                <!-- <td><?php echo $row->status; ?></td> -->
+                                                                <td><?php echo $row->nama_periode; ?></td>
+                                                                <td><?php echo $row->tgl_periode1; ?></td>
+                                                                <td><?php echo $row->tgl_periode2; ?></td>
                                                                 <td>
                                                                     <div class="btn-group">
-                                                                        <a href="<?php echo base_url().'Project/edit/'.$row->id; ?>" class="btn btn-flat btn-xs btn-warning" data-tooltip="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
+                                                                        <a href="<?php echo base_url().'Periode/edit/'.$row->id; ?>" class="btn btn-flat btn-xs btn-warning" data-tooltip="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></a>
                                                                         <a href="" data-toggle="modal" data-target="#hapusData<?php echo $row->id; ?>" data-id="" data-tooltip="tooltip" data-placement="top" title="Delete Data" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></a>
                                                                     </div>
                                                                 </td>
@@ -92,5 +97,5 @@
         </div>
 
         <?php
-            $this->load->view('Project/modal');
+            $this->load->view('Periode/modal');
         ?>

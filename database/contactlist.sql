@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2021 at 12:27 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Jul 30, 2021 at 11:31 PM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,7 +70,14 @@ INSERT INTO `defect_list` (`id`, `kode_defect`, `nama_defect`, `status`) VALUES
 (8, 'DFC-008', 'Short Shot', '1'),
 (9, 'DFC-009', 'Silver', '1'),
 (10, 'DFC-010', 'Undercut', '1'),
-(11, 'DFC-011', 'Weld Line', '1');
+(11, 'DFC-011', 'Weld Line', '1'),
+(12, 'DFC-012', 'Discolour', '1'),
+(13, 'DFC-013', 'Shink Mark', '1'),
+(14, 'DFC-014', 'Gate Bolong', '1'),
+(15, 'DFC-015', 'Qty Discrepancy', '1'),
+(16, 'DFC-016', 'Jumping Proses', '1'),
+(17, 'DFC-017', 'Minus Rivetting', '1'),
+(18, 'DFC-018', 'Deform', '1');
 
 -- --------------------------------------------------------
 
@@ -851,6 +858,36 @@ INSERT INTO `mesin` (`id`, `no_mesin`, `tonnage`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `periode`
+--
+
+CREATE TABLE `periode` (
+  `id` int(11) NOT NULL,
+  `nama_periode` varchar(20) NOT NULL,
+  `tgl_periode1` date NOT NULL,
+  `tgl_periode2` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `periode`
+--
+
+INSERT INTO `periode` (`id`, `nama_periode`, `tgl_periode1`, `tgl_periode2`) VALUES
+(1, 'Januari 2021', '2021-01-26', '2021-02-25'),
+(2, 'Februari 2021', '2021-02-26', '2021-03-25'),
+(3, 'Maret 2021', '2021-03-26', '2021-04-25'),
+(4, 'April 2021', '2021-04-26', '2021-05-25'),
+(5, 'Mei 2021', '2021-05-26', '2021-06-25'),
+(6, 'Juni 2021', '2021-06-26', '2021-07-25'),
+(7, 'Juli 2021', '2021-07-26', '2021-08-25'),
+(8, 'Agustus 2021', '2021-08-26', '2021-09-25'),
+(9, 'September 2021', '2021-09-26', '2021-10-25'),
+(10, 'Oktober 2021', '2021-10-26', '2021-11-25'),
+(11, 'November 2021', '2021-11-26', '2021-12-25');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `project`
 --
 
@@ -927,19 +964,19 @@ CREATE TABLE `transaksi` (
   `defect_qty` int(10) NOT NULL,
   `abn_type` int(1) NOT NULL,
   `defect` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `situation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `root` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `temporary` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `situation` varchar(225) COLLATE utf8_unicode_ci NOT NULL,
+  `root` varchar(225) COLLATE utf8_unicode_ci NOT NULL,
+  `temporary` varchar(225) COLLATE utf8_unicode_ci NOT NULL,
   `stop_time` time NOT NULL,
   `qty_sortir` int(10) NOT NULL,
   `qty_ok` int(10) NOT NULL,
   `qty_ng` int(10) NOT NULL,
-  `working_hour` int(10) NOT NULL,
-  `result` int(10) NOT NULL,
+  `working_hour` float(11,1) NOT NULL,
+  `result` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `longterm` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `improvement` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `finish` date NOT NULL,
-  `status` enum('Close','Open','','') COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
   `verified` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -948,18 +985,106 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id`, `kode`, `tanggal`, `reported`, `shift`, `machine_no`, `project`, `product_drawing`, `lot_no`, `total_product`, `defect_qty`, `abn_type`, `defect`, `situation`, `root`, `temporary`, `stop_time`, `qty_sortir`, `qty_ok`, `qty_ng`, `working_hour`, `result`, `longterm`, `improvement`, `finish`, `status`, `verified`) VALUES
-(1, '20210225-003', '2021-02-25', '0274', 2, '124', '18', '7171-6047', '20210223', 0, 0, 1, '\"2\"', 'Bubble dekat hole clip', 'Setting parameter mesin ', 'Diperbaiki oleh leader& dibuatkan limit sample', '00:00:00', 0, 0, 0, 0, 0, 'tes', '0096', '2021-07-23', 'Close', '0274'),
-(2, '20210301-003', '2021-03-01', '0305', 3, '124', '18', '7171-6047', '20210302', 0, 0, 2, '\"2\"', 'Delaminasi area RIB CAV 1& 2', 'Reduce cooling time dari 45-40 sec', 'Diperbaiki oleh leader & hasil produksi di sortir', '00:00:00', 0, 0, 0, 0, 0, 'tes', '0205', '2021-07-23', 'Close', '0305'),
-(3, '20210312-005', '2021-03-12', '0274', 3, '124', '18', '7171-6047', '20210312', 0, 0, 2, '\"11\"', 'Weldline area general', 'Parameter setting mesin', 'Diperbaiki oleh leader ', '00:00:00', 0, 0, 0, 0, 0, 'tes', '0145', '2021-07-23', 'Close', '0274'),
-(4, '20210405-003', '2021-04-05', '0274', 1, '124', '18', '7171-6047', '20210405', 0, 0, 2, '\"8,11\"', 'Shortshoot area clip& weldline', 'parameter mesin ', 'Diperbaiki oleh leader', '00:00:00', 0, 0, 0, 0, 0, 'tes', '0363', '2021-07-23', 'Close', '0274'),
-(5, '20210405-003', '2021-04-05', '0274', 1, '124', '18', '7171-6047', '20210405', 0, 0, 2, '\"8,11\"', 'Shortshoot area clip& weldline', 'parameter mesin ', 'Diperbaiki oleh leader', '00:00:00', 0, 0, 0, 0, 0, 'tes', '0363', '2021-07-23', 'Close', '0274'),
-(6, '20210405-003', '2021-04-05', '0274', 1, '124', '18', '7171-6047', '20210405', 0, 0, 2, '\"8,11\"', 'Shortshoot area clip& weldline', 'parameter mesin ', 'Diperbaiki oleh leader', '00:00:00', 0, 0, 0, 0, 0, 'tes', '0363', '2021-07-23', 'Close', '0274'),
-(7, '20210415-004', '2021-04-15', '0351', 1, '124', '18', '7171-6047', '20210414', 0, 0, 1, '\"5\"', 'Flashing area holder socket7 area general', 'Karat pada insert menyebabkan pergerakan slider terhambat', 'Trimming inline& di buatkan SPK', '00:00:00', 0, 0, 0, 0, 0, 'tes ', '0275', '2021-07-23', 'Close', '0351'),
-(8, '20210519-003', '2021-05-19', '0231', 3, '124', '18', '7171-6047', '20210519', 2900, 0, 2, '\"10\"', 'Undercut cav 2 area Hole clamp ', 'Mold terlalu dingin', 'Setting temp ciller 12  ke 16', '00:00:00', 0, 0, 0, 0, 0, 'tes', '0275', '2021-07-23', 'Close', '0231'),
-(9, '20210525-003', '2021-05-25', '0351', 3, '124', '18', '7171-6047', '20210525', 0, 0, 2, '\"4\"', 'Excessive area surface cav 2', 'Insert dented (Part nempel di core tidak bisa di eject)', 'Stop produksi, Repair mold', '00:00:00', 0, 0, 0, 0, 0, 'Pergantian insert dengan bahan bronze pada core, lakukan observasi pada proses pada bagian mana yang', '0346', '2021-07-23', 'Close', '0351'),
-(10, '20210531-004', '2021-05-31', '0346', 2, '124', '18', '7171-6047', '20210531', 0, 0, 2, '\"6\"', 'Watermark (shortshoot) & dirty area ejector', 'Under analisa', 'Set down mold (diperbaiki oleh mold enginer)', '00:00:04', 0, 0, 0, 0, 0, 'tes', '0346', '2021-07-23', 'Close', '0351'),
-(11, '20210604-005', '2021-06-04', '0231', 1, '124', '18', '7171-6047', '20210603', 0, 0, 2, '\"4\"', 'Excessive area ejector blade cav 2 ketika running auto', 'Ejector blade patah', 'Ganti ejector blade baru', '00:00:05', 0, 0, 0, 0, 0, 'tes', '0275', '2021-07-23', 'Close', '0231'),
-(12, '20210604-006', '2021-06-04', '0351', 3, '124', '18', '7171-6047', '20210603', 0, 0, 2, '\"2\"', 'Part cav  1 nempel di core', 'proses pengisisan material terlalu lama sehingga part mengeras pada permukaan mold, ketika mold dibu', 'Turun mold , di perbaiki oleh mold enginer (hasil after repair apppearance part broken/insert deform', '00:00:00', 0, 0, 0, 0, 0, 'tes', '0346', '2021-07-23', 'Close', '0351');
+(1, '20210225-003', '2021-02-25', '0274', 2, '124', '18', '7171-6047', '20210223', 0, 0, 1, '\"2\"', 'Bubble dekat hole clip', 'Setting parameter mesin ', 'Diperbaiki oleh leader& dibuatkan limit sample', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0096', '2021-07-23', 1, '0274'),
+(2, '20210301-003', '2021-03-01', '0305', 3, '124', '18', '7171-6047', '20210302', 0, 0, 2, '\"2\"', 'Delaminasi area RIB CAV 1& 2', 'Reduce cooling time dari 45-40 sec', 'Diperbaiki oleh leader & hasil produksi di sortir', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0205', '2021-07-23', 1, '0305'),
+(3, '20210312-005', '2021-03-12', '0274', 3, '124', '18', '7171-6047', '20210312', 0, 0, 2, '\"11\"', 'Weldline area general', 'Parameter setting mesin', 'Diperbaiki oleh leader ', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0145', '2021-07-23', 1, '0274'),
+(4, '20210405-003', '2021-04-05', '0274', 1, '124', '18', '7171-6047', '20210405', 0, 0, 2, '\"8,11\"', 'Shortshoot area clip& weldline', 'parameter mesin ', 'Diperbaiki oleh leader', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0363', '2021-07-23', 1, '0274'),
+(5, '20210405-003', '2021-04-05', '0274', 1, '124', '18', '7171-6047', '20210405', 0, 0, 2, '\"8,11\"', 'Shortshoot area clip& weldline', 'parameter mesin ', 'Diperbaiki oleh leader', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0363', '2021-07-23', 1, '0274'),
+(6, '20210405-003', '2021-04-05', '0274', 1, '124', '18', '7171-6047', '20210405', 0, 0, 2, '\"8,11\"', 'Shortshoot area clip& weldline', 'parameter mesin ', 'Diperbaiki oleh leader', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0363', '2021-07-23', 1, '0274'),
+(7, '20210415-004', '2021-04-15', '0351', 1, '124', '18', '7171-6047', '20210414', 0, 0, 1, '\"5\"', 'Flashing area holder socket7 area general', 'Karat pada insert menyebabkan pergerakan slider terhambat', 'Trimming inline& di buatkan SPK', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0275', '2021-07-23', 1, '0351'),
+(8, '20210519-003', '2021-05-19', '0231', 3, '124', '18', '7171-6047', '20210519', 2900, 0, 2, '\"10\"', 'Undercut cav 2 area Hole clamp ', 'Mold terlalu dingin', 'Setting temp ciller 12  ke 16', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0275', '2021-07-23', 1, '0231'),
+(9, '20210525-003', '2021-05-25', '0351', 3, '124', '18', '7171-6047', '20210525', 0, 0, 2, '\"4\"', 'Excessive area surface cav 2', 'Insert dented (Part nempel di core tidak bisa di eject)', 'Stop produksi, Repair mold', '00:00:00', 0, 0, 0, 0.0, 'OK', 'Pergantian insert dengan bahan bronze pada core, lakukan observasi pada proses pada bagian mana yang', '0346', '2021-07-23', 1, '0351'),
+(10, '20210531-004', '2021-05-31', '0346', 2, '124', '18', '7171-6047', '20210531', 0, 0, 2, '\"6\"', 'Watermark (shortshoot) & dirty area ejector', 'Under analisa', 'Set down mold (diperbaiki oleh mold enginer)', '00:00:04', 0, 0, 0, 0.0, 'OK', '-', '0346', '2021-07-23', 1, '0351'),
+(11, '20210604-005', '2021-06-04', '0231', 1, '124', '18', '7171-6047', '20210603', 0, 0, 2, '\"4\"', 'Excessive area ejector blade cav 2 ketika running auto', 'Ejector blade patah', 'Ganti ejector blade baru', '00:00:05', 0, 0, 0, 0.0, 'OK', '-', '0275', '2021-07-23', 1, '0231'),
+(12, '20210604-006', '2021-06-04', '0351', 3, '124', '18', '7171-6047', '20210603', 0, 0, 2, '\"2\"', 'Part cav  1 nempel di core', 'proses pengisisan material terlalu lama sehingga part mengeras pada permukaan mold, ketika mold dibu', 'Turun mold , di perbaiki oleh mold enginer (hasil after repair apppearance part broken/insert deform', '00:00:00', 0, 0, 0, 0.0, 'OK', '-', '0346', '2021-07-23', 1, '0351'),
+(13, '20210701-001', '2021-07-01', '0008', 1, '60', '1', '7276-2271-3W', '20200107', 2808, 0, 1, '\"4\"', 'Clip cav 2', 'Terjadi awal running/setting parameter debugging', 'Repair mold oleh mold enginer', '13:46:00', 0, 0, 2808, 0.0, 'OK', '-', '0078', '2021-07-26', 1, '0065'),
+(14, '20210701-002', '2021-07-01', '0013', 2, '76', '5', '7171-6334-30', '20200106', 10800, 0, 1, '\"4\"', 'Marking date lock di part rusak (date tidak berbentuk)', 'Date lock pada mold kotor               ', 'Mold turun, repair oleh Mold Enginer (cleaning mold) & monitoring oleh QC', '13:55:00', 0, 0, 10800, 0.0, 'OK', ' -', '0078', '2021-07-26', 1, '0065'),
+(15, '20210703-001', '2021-07-03', '0009', 2, '71', '1', '7276-2447-3W', '20200110', 9840, 0, 1, '\"4\"', 'Area lock female cav 1', 'Mold gompal', 'Stop produksi, dilakukan sortir lot 20191224,20200106,20200110,20200111', '00:00:00', 7654, 5476, 2186, 30.0, 'OK', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-26', 1, '0065'),
+(16, '20210703-002', '2021-07-03', '0008', 1, '51', '1', '7276-2449-3W', '20200110', 4200, 0, 2, '\"5\"', 'Di dekat/bawah area hinge cav 1', 'P/L aus/nggaruk', 'Temporary judgement OK by Quality', '00:00:00', 0, 0, 4200, 0.0, 'OK', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-26', 1, '0065'),
+(17, '20210707-001', '2021-07-07', '0009', 2, '42', '1', '7176-2275-30', '20200127', 5400, 0, 1, '\"5\"', 'Area Clip Cav 2', '-', 'Temporary OK', '00:00:00', 0, 0, 5400, 0.0, 'OK', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-26', 1, '0031'),
+(18, '20210708-001', '2021-07-08', '0096', 1, '46', '1', '7276-2453-3W-A', '20200130', 4800, 1, 1, '\"2\"', 'Cav 2', 'Charging time & cushion tidak stabil', '-', '00:31:00', 0, 0, 4800, 0.0, 'OK', 'Setting hold pressure, back press dan press untuk membuat rotasi screw lebih padat', '0078', '2021-07-26', 1, '0031'),
+(19, '20210708-002', '2021-07-08', '0013', 2, '24', '1', '7276-2451-3W', '20200201', 5040, 0, 1, '\"4\"', 'Cav 2 area lock female', 'Mold Gompal (awal produksi/debugging)', 'Stop produksi', '00:35:00', 0, 0, 5040, 0.0, 'OK', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-26', 1, '0065'),
+(20, '20210708-003', '2021-07-08', '0308', 3, '52', '1', '7276-0618-3W', '20200203', 3000, 0, 1, '\"5,10\"', 'Undercut area ujung & flashing area date lock cav 2', 'Undercut : problem berulang, Flahing : ada gap pada posisi date lock ', 'Undercut : temporary action mold disemprot menggunakan mold realease    ', '00:01:00', 0, 0, 3000, 0.0, 'OK', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-26', 1, '0031'),
+(21, '20210713-001', '2021-07-13', '0368', 1, '1', '1', '7276-0618-3W', '20200127', 1008, 0, 1, '\"8\"', 'Area hole collar ditemuakan di proses assy, qty : 1 pcs', 'OP injection (120) shift 2 flow out', 'Lanjut proses assy, setelah selesai part di hold & dilakukan sortir', '00:56:00', 0, 0, 1008, 0.0, 'OK', '-', '0078', '2021-07-26', 1, '0114'),
+(22, '20210715-001', '2021-07-15', '0009', 1, '80', '1', '7276-0191-3W', '20200402', 1440, 0, 2, '\"12\"', 'Discolouration pada part', 'Massa jenis masterbatch dan material virgin berbeda, dengan kondisi posisi hooper dibawah. Menyebabk', 'Dilakukan mixing manual', '00:00:00', 0, 0, 1440, 0.0, 'OK', 'Under analisa', '0078', '2021-07-26', 1, '0065'),
+(23, '20210715-002', '2021-07-15', '0013', 2, '27', '1', '7276-2273-3W', '20200402', 1550, 0, 1, '\"4\"', 'Excessive Material CAVITY 2 area clip', 'Hydraulic slider bocor, sehinnga terjadi gap pada area slider clip', 'hold & sortir part hasil produksi', '00:04:00', 0, 0, 1550, 0.0, 'OK', 'Under analisa', '0078', '2021-07-26', 1, '0114'),
+(24, '20210716-001', '2021-07-16', '0008', 1, '72', '1', '7276-0616-3W', '20200205', 3360, 0, 1, '\"5,10\"', 'Flash area clip dan undercut cav 1 & 2', '- Flash \" P/L kurang matching', '-Temporary OK                                                                                       ', '00:00:00', 0, 0, 3360, 0.0, '-', 'Dibuatkan SPK untuk repair mold (flash)', '0078', '2021-07-26', 1, '0065'),
+(25, '20210717-001', '2021-07-17', '0308', 3, '25', '1', '7176-2454-30-A', '20200210', 4800, 0, 2, '\"2,9\"', '-', 'Cushion tidak stabil', '-Cleaning barel                                                                                     ', '00:00:00', 0, 0, 4800, 0.0, 'OK', 'Kondisi cushion stabil after cleaning barel', '0078', '2021-07-26', 1, '0031'),
+(26, '20210717-002', '2021-07-17', '0096', 3, '60', '1', '7176-2469-30', '20200210', 7800, 0, 2, '\"8\"', 'Cav 3 area final filling di pertengahan produksi', '-', '-Adjust parameter setting\r\n- Inj. press 1 = 65 ke 70, Inj. press 2 = 30 ke 35', '00:00:00', 0, 0, 7800, 0.0, 'OK', '-', '0078', '2021-07-26', 1, '0065'),
+(27, '20210717-003', '2021-07-17', '0224', 2, '80', '1', '7176-0194-30', '20200211', 367, 0, 1, '\"8\"', 'Awal running', 'Kontaminasi material, awal set running kondisi running di mesin 314#', 'Temporary action ; menaikkan temperature hot runner -> check MO injection', '00:00:00', 367, 367, 0, 0.0, '-', '-', '0078', '2021-07-26', 1, '0031'),
+(28, '20210717-004', '2021-07-17', '0096', 2, '52', '1', '7276-2468-3W', '202200212', 3528, 0, 1, '\"7\"', 'Selisih Qty antara bucket dengan counter m/c assy (ganjil)', 'Posisi roling part selisih/ganjil', '\'Part hasil yang 3 bucket di hold & collar di tuker ke whs', '00:00:00', 126, 126, 3402, 0.0, 'OK', '-', '0078', '2021-07-26', 1, '0031'),
+(29, '20210717-005', '2021-07-17', '0013', 1, '25', '1', '7176-2454-30-A', '20200215', 4800, 0, 1, '\"8\"', 'Ditemukan dipertengahan running (final filling)', 'Cushion + charging time tidak stabil', 'Monitoring QC & hasil produksi di hold 400 pcs', '00:00:00', 0, 0, 4800, 0.0, 'OK', 'Action :  1. Check band heater dari zone 1-6 hasil OK                             2. Check back pres', '0078', '2021-07-26', 1, '0114'),
+(30, '20210718-001', '2021-07-18', '0096', 2, '22', '1', '7276-2451-3W', '20200212', 1680, 1, 1, '\"4\"', 'Saat running assy ditemukan NG', 'Saat awal proses, material meler dan ter-inject lagi karena kondisi mesin setelah stop', '- Purging ulang karena terdapat material yang panas didalam hot runner\r\n- Dilakukan hold part untuk lot tersebut \r\n- Dilakukan repair ulang karena after repair flash sebelumnya masih terdapat NG saat trial. (schedule repair n', '00:00:00', 0, 0, 1680, 0.0, 'OK', 'Dibuatkan SPK untuk repair mold (flash)', '0078', '2021-07-26', 1, '0031'),
+(31, '20210718-002', '2021-07-18', '0008', 2, '60', '1', '7276-0617-3W', '20200222', 630, 0, 1, '\"8\"', 'Area final filling cav 2 / burning', 'Gasvent kotor dan running dari tanggal 19-02-2020 shift 3', 'Cleaning gasvent ', '00:00:00', 630, 630, 0, 0.0, 'OK', ' -', '0078', '2021-07-26', 1, '0065'),
+(32, '20210719-001', '2021-07-19', '0368', 2, '60', '1', '7276-0620-3W', '20200224', 3100, 0, 1, '\"2\"', 'Part nempel di cavity', 'Terjadi setelah mesin stop , mold tidak bisa open', 'Turun mold untuk diperbaiki oleh mold enginering ', '00:00:00', 0, 0, 3100, 0.0, 'OK', 'Repair dipertengahan produksi', '0078', '2021-07-26', 1, '0114'),
+(33, '20210719-002', '2021-07-19', '0013', 2, '15', '5', '7176-4122-30', '20200225', 6600, 0, 2, '\"4,8,11\"', 'Area final filling', 'Temperature hot runner zone 1 over set : 300, actual 340', 'Adjust hot runner zone 1,2,3 dari 290 ke 310 dan ganti modul hot runner dan ganti modul hot runner / ditukar dengan modul zone lain & monitoring QC', '00:00:00', 0, 0, 6600, 0.0, '-', '-', '0078', '2021-07-26', 1, '0114'),
+(34, '20210719-003', '2021-07-19', '0096', 1, '1', '1', '7176-0190-30', '20200225', 240, 1, 2, '\"8\"', 'Area final filling , saat akhir shift ditemukan oleh MP assy', 'Under analisa', 'Part di hold untuk sortir', '00:00:00', 240, 240, 0, 0.0, '-', '-', '0078', '2021-07-26', 1, '0031'),
+(35, '20210720-001', '2021-07-20', '0229', 2, '19', '1', '7276-0191-3W', '20200228', 2520, 0, 2, '\"3\"', 'Cav 2 ', 'Gasvent tertutup residu (kotoran)/gas trap', 'Cleaning mold & gasvent yang mampet (monitoring QC judgement OK) => after repair masih ada burning', '00:00:00', 0, 0, 2520, 0.0, 'OK', '-', '0078', '2021-07-26', 1, '0114'),
+(36, '20210720-002', '2021-07-20', '0008', 3, '14', '1', '7276-2484-3W', '20200831', 1310, 3, 1, '\"8\"', 'Shortshot', 'Under Analisa', 'Dilakukan Sortir', '00:15:00', 0, 0, 1310, 0.0, 'OK', 'Under Analisa', '0078', '2021-07-27', 1, '0114'),
+(37, '20210724-001', '2021-07-24', '0013', 2, '46', '1', '7276-2484-3W', '20200930', 3000, 0, 1, '\"5,8\"', ' Short shoot cav 1 area hole collar, flash area lock female cav 2', '-', 'Temporary flashing OK', '00:00:00', 0, 0, 3000, 0.0, '-', '-', '0078', '2021-07-27', 1, '0114'),
+(38, '20210725-001', '2021-07-25', '0096', 2, '49', '1', '7276-2484-3W', '20201007', 3180, 0, 1, '\"3\"', 'Burning dekat area hinge cavity 2', 'Terjadi gas trap', 'Monitoring Qc', '00:00:00', 0, 0, 3180, 0.0, '-', '-', '0078', '2021-07-27', 1, '0114'),
+(39, '20210725-002', '2021-07-25', '0145', 2, '48', '1', '7276-2484-3W', '20201007', 3180, 0, 1, '\"8\"', 'Short shoot dan silver pada semua cavity', 'Charging time tidak stabil', 'Setting hold pressure, back press dan press untuk membuat rotasi screw lebih padat', '00:00:00', 0, 0, 3180, 0.0, '-', 'Under analisa', '0078', '2021-07-27', 1, '0234'),
+(40, '20210725-003', '2021-07-25', '0368', 1, '48', '1', '7276-2484-3W', '20201016', 3180, 0, 1, '\"1\"', 'Breakage', 'Check valve mengalami kebocoran sehingga megakibatkan lose power pada hydraulic', '-', '00:24:00', 0, 0, 3180, 0.0, '-', '-', '0078', '2021-07-27', 1, '0065'),
+(41, '20210730-001', '2021-07-30', '0205', 2, '47', '1', '7276-2484-3W', '20201119', 3480, 0, 1, '\"5\"', 'Hinge cav 1', 'Repair belum stabil', 'Repair ulang dan dibuatkan perbaikan mold', '00:00:00', 0, 0, 3480, 0.0, '-', 'dilakukan welding dan fitting ulang insert', '0078', '2021-07-27', 1, '0065'),
+(42, '20210730-002', '2021-07-30', '0145', 2, '47', '1', '7276-2484-3W', '20201119', 3480, 0, 1, '\"2,8\"', 'Short shoot all cavity ', 'Cushion + charging time tidak stabil', 'Setting hold pressure, back press dan press untuk membuat rotasi screw lebih padat', '00:00:00', 0, 0, 3480, 0.0, '-', '-', '0078', '2021-07-27', 1, '0114'),
+(43, '20210731-001', '2021-07-31', '0308', 1, '47', '1', '7276-2484-3W', '20200728', 0, 0, 1, '\"10\"', 'undercut, shortshot dan excessive', 'Under Analisa', 'Under Analisa', '00:43:00', 0, 0, 20200728, 0.0, '-', 'Under Analisa', '0078', '2021-07-27', 1, '0065'),
+(44, '20210731-002', '2021-07-31', '0368', 1, '47', '1', '7276-2484-3W', '20200728', 0, 0, 1, '\"7\"', 'Missing date clock', 'Missing date clock terjadi karena adanya kesalahan pembacaan garis', '-', '00:00:00', 0, 0, 0, 0.0, '-', '-', '0078', '2021-07-27', 1, '0065'),
+(45, '20210731-003', '2021-07-31', '0008', 1, '48', '1', '7276-2484-3W', '20200831', 1200, 0, 1, '\"10\"', 'Undercut cavity 1', 'Terjadi retak pada cavity mold', '-', '00:00:00', 0, 0, 1200, 0.0, '-', 'Dibuatkan SPK untuk repair', '0078', '2021-07-27', 1, '0065'),
+(46, '20210802-001', '2021-08-02', '0145', 3, '47', '1', '7276-2484-3W', '20201007', 3180, 0, 1, '\"4\"', 'Excessive area lock female cav 2', 'Gate meler', 'Setting parameter dan monitoring QC', '00:00:00', 0, 0, 3180, 0.0, '-', ' Dilakukan perubahan parameter', '0078', '2021-07-27', 1, '0277'),
+(47, '20210802-002', '2021-08-02', '0224', 3, '47', '1', '7276-2484-3W', '20201007', 3180, 0, 1, '\"10\"', 'Hydrolic mold cav 1 tidak berfungsi', 'Under analisa, temporary cav panas', 'Repair mold dan dibuatkan SPK', '00:00:00', 0, 0, 3180, 0.0, '-', 'dilakukan pergantian check valve', '0078', '2021-07-27', 1, '0354'),
+(48, '20210802-003', '2021-08-02', '0145', 2, '48', '1', '7276-2484-3W', '20201016', 3180, 0, 1, '\"6\"', 'Flowmark', 'Charging time tidak stabil', 'Setting hold pressure, back press dan press untuk membuat rotasi screw lebih padat', '00:00:00', 0, 0, 3180, 0.0, '-', '0', '0078', '2021-07-27', 1, '0234'),
+(49, '20210805-001', '2021-08-05', '0013', 1, '48', '1', '7276-2484-3W', '20201103', 3480, 0, 1, '\"5,8\"', 'Flashing area hinge dekat date clock cav 1, short shoot area lock male', 'Under analisa', 'Set parameter, temporary judgment OK', '00:00:00', 0, 0, 3480, 0.0, '-', 'dilakukan cp parameter', '0078', '2021-07-27', 1, '0308'),
+(50, '20210805-002', '2021-08-05', '0205', 2, '47', '1', '7276-2484-3W', '20201119', 3480, 0, 1, '\"5\"', 'Hinge cav 1', 'Repair belum stabil', 'Repair ulang dan dibuatkan perbaikan mold', '00:00:00', 0, 0, 3480, 0.0, '-', 'dilakukan welding dan fitting ulang insert', '0078', '2021-07-27', 1, '0114'),
+(51, '20210806-001', '2021-08-06', '0229', 1, '48', '1', '7276-2484-3W', '20201128', 0, 0, 2, '\"8\"', 'Short shoot area final filling', 'Charging time & cushion tidak stabil ', 'Setting hold pressure, back press dan press untuk membuat rotasi screw lebih padat', '00:01:00', 0, 0, 0, 0.0, '-', '-', '0078', '2021-07-27', 1, '0209'),
+(52, '20210806-002', '2021-08-06', '0008', 1, '46', '1', '7276-2484-3W', '20201211', 0, 0, 1, '\"2,9\"', 'Silver & bubble area body luar all cavity', 'Temperature hot runner terlalu panas', 'Setting ulang temp. Hot runne', '00:00:00', 0, 0, 0, 0.0, '-', 'Setting temperature hot runner', '0078', '2021-07-27', 1, '0229'),
+(53, '20210809-001', '2021-08-09', '0013', 3, '47', '1', '7276-2484-3W', '20201217', 0, 0, 2, '\"8\"', 'Short area final filling', 'Temperature hot runner tidak actual, Problem gate zone 6 sering mampet', 'Perbaikan hot runner stage 6 oleh maintenance, Cleaning sumbatan area gate oleh mold enginer', '00:00:00', 0, 0, 0, 0.0, '-', 'Dilakukan perbaikan hot runner stage 6 oleh maintenance & Cleaning sumbatan area gate oleh mold engi', '0078', '2021-07-27', 1, '0308'),
+(54, '20210809-002', '2021-08-09', '0345', 2, '48', '1', '7276-2484-3W', '20201217', 0, 0, 1, '\"4,8,9\"', 'Short shot & silver & Excessive all cavity', 'Under analisa', 'Monitoring & Sharing problem ke operator', '00:00:00', 0, 0, 0, 0.0, '-', 'Under analisa', '0078', '2021-07-27', 1, '0065'),
+(55, '20210811-001', '2021-08-11', '0013', 1, '47', '1', '7276-2484-3W', '20201103', 3480, 0, 1, '\"5,8\"', 'Flashing area hinge dekat date clock cav 1, short shoot area lock male', 'Under analisa', 'Set parameter, temporary judgment OK', '00:00:00', 0, 0, 3480, 0.0, '-', 'dilakukan cp parameter', '0078', '2021-07-27', 1, '0114'),
+(56, '20210811-002', '2021-08-11', '0145', 2, '47', '1', '7276-2484-3W', '20201104', 1380, 0, 1, '\"8,9\"', 'Area final filling dan silver di area luar', '-', 'Perbaikan oleh leader  ', '00:00:00', 0, 0, 1380, 0.0, '-', 'dilakukan cp parameter', '0078', '2021-07-27', 1, '0065'),
+(57, '20210811-003', '2021-08-11', '0008', 1, '60', '1', '7276-2468-3W', '20201208', 252, 0, 1, '\"10\"', 'Undercut cavity 2 area lock female', 'Under analisa ', 'Part di hold & sortir', '00:00:00', 252, 252, 0, 1.0, 'OK', 'perbaikan oleh mold mte.', '0065', '2021-07-27', 1, '0231'),
+(58, '20210813-001', '2021-08-13', '0008', 1, '97', '1', '7176-2469-30', '20201208', 0, 0, 1, '\"8\"', 'Short shot final filling', 'Gate mampet', 'Dibuatkan limit sample', '00:00:00', 0, 0, 0, 0.0, '-', '-', '0065', '2021-07-27', 1, '0171'),
+(59, '20210813-002', '2021-08-13', '0205', 1, '88', '5', '7171-6334-30', '20201208', 0, 0, 2, '\"13\"', 'Sinkmark cav 2', 'Gate mampet, keluar 1 cav', 'judgment ok', '00:00:00', 0, 0, 0, 0.0, '-', 'Perbaikan saluran gate', '0065', '2021-07-27', 1, '0231'),
+(60, '20210814-001', '2021-08-14', '0229', 3, '5', '5', '7271-6331-3W', '20201210', 0, 0, 1, '\"14\"', 'Gate bolong Cavity 1', 'Area gate tersumbat', 'Dilakukan Cleaning area gate yang tersumbat', '00:00:00', 0, 0, 0, 0.0, '-', 'Cleaning gate', '0209', '2021-07-27', 1, '0305'),
+(61, '20210814-002', '2021-08-14', '0009', 3, '98', '1', '7276-0618-3W', '20201209', 0, 0, 2, '\"8\"', 'Short shoot area final filling position', 'Area gate tersumbat', 'Dilakukan Cleaning area gate yang tersumbat', '00:00:00', 0, 0, 0, 0.0, '-', 'Cleaning gate', '0305', '2021-07-27', 1, '0209'),
+(62, '20210816-001', '2021-08-16', '0224', 3, '71', '1', '7176-0205-30', '20201210', 720, 0, 2, '\"5\"', 'Flashing area lock female cavity 1', 'Insert sudah Aus', 'Dilakukan trimming inline & dibuatkan SPK', '00:00:00', 720, 720, 0, 5.0, 'OK', 'Under analisa', '0305', '2021-07-27', 1, '0209'),
+(63, '20210816-002', '2021-08-16', '0205', 3, '47', '1', '7176-2454-30-A', '20201208', 0, 0, 2, '\"8\"', 'Short shoot area final filling ', 'Cushion + charging time tidak stabil', 'Monitoring QC & edukasi ke Operator tentang Final filling position & Key point', '00:00:00', 0, 0, 0, 0.0, 'OK', 'Under analisa', '0078', '2021-07-27', 1, '0065'),
+(64, '20210816-003', '2021-08-16', '0368', 1, '47', '1', '7276-2273-3W', '20201210', 0, 0, 2, '\"4\"', 'excessive cav 2, di area COT', 'Insert patah', 'temporary judgement OK(hasil & dibuatkan SPK mold oleh leader', '00:00:00', 0, 0, 0, 0.0, '-', 'Dibuatkan SPK, Repair mold', '0065', '2021-07-27', 1, '0224'),
+(65, '20210817-001', '2021-08-17', '0008', 2, '47', '1', '7276-2273-3W', '20201210', 1219, 0, 1, '\"15\"', 'Qty std 100 pcs, actual 110, 120 pcs', 'manpower belum mngetahui std packing & neter', 'Repacking', '00:00:00', 1200, 1200, 19, 3.0, 'OK', 'Training ke oprtr ybs', '0231', '2021-07-27', 1, '0065'),
+(66, '20210818-001', '2021-08-18', '0205', 2, '95', '1', '7276-3732-3W', '20201210', 0, 0, 1, '\"6\"', 'Watermark area body part', 'Selang sirkulasi cooling mold pecah', 'Perbaikan selang sirkulasi mold', '00:00:00', 0, 0, 0, 0.0, '-', 'Ganti selang sirkulasi cooling mold', '0078', '2021-07-27', 1, '0065'),
+(67, '20210821-001', '2021-08-21', '0224', 3, '34', '1', '7276-2475-3W', '20201211', 700, 0, 1, '\"5\"', 'Flashing dekat area hinge cavity 2', 'Mold kotor', 'Perbaikan by mold engineering (cleaning)', '00:00:00', 700, 700, 0, 2.0, 'OK', 'Cleaning mold', '0233', '2021-07-27', 1, '0209'),
+(68, '20210821-002', '2021-08-21', '0224', 3, '75', '1', '7176-2479-30', '20201210', 0, 0, 1, '\"12\"', 'Discolour all cavity', 'Material tidak tercampur rata', 'Dibuatkan limit sample', '00:00:00', 0, 0, 0, 0.0, '-', 'Under analisa', '0305', '2021-07-27', 1, '0209'),
+(69, '20210824-001', '2021-08-24', '0008', 1, '49', '1', '7276-2484-3W', '20201211', 0, 0, 1, '\"2,9\"', 'Silver & bubble area body luar all cavity', 'Temperature hot runner terlalu panas', 'Setting ulang temp. Hot runner', '00:00:00', 0, 0, 0, 0.0, '-', 'Setting temperature hot runner', '0065', '2021-07-27', 1, '0009'),
+(70, '20210824-002', '2021-08-24', '0008', 1, '15', '1', '7176-0194-30', '20201211', 0, 0, 2, '\"16\"', 'Kontaminasi material PA', 'Kontaminasi material PA', 'Dibuatkan limit sample', '00:00:00', 0, 0, 0, 0.0, '-', 'Under analisa', '0209', '2021-07-27', 1, '0231'),
+(71, '20210827-001', '2021-08-27', '0270', 2, '17', '1', '7276-2449-3W', '20201211', 301, 0, 1, '\"8\"', 'Short shoot area final filling position & gate bolong Cavity 1', 'Gate tersumbat', 'Cleaning gate yang tesumbat', '00:00:00', 300, 285, 1, 0.5, 'OK', 'Cleaning gate', '0065', '2021-07-27', 1, '0274'),
+(72, '20210827-002', '2021-08-27', '0224', 3, '53', '4', '7276-5262-3W', '20201211', 480, 0, 1, '\"5\"', 'Flashing area clip cavity 1', 'Under analisa', 'Trimming inline', '00:00:00', 480, 480, 0, 3.5, 'OK', 'Under analisa', '0305', '2021-07-27', 1, '0209'),
+(73, '20210828-001', '2021-08-28', '0014', 1, '48', '1', '7276-2484-3W', '20201211', 0, 0, 2, '\"3\"', 'Burning cavity 2 area body', 'Material Terlalu padat', 'Resetting parameter tetapi tetap masuk dalam standar toleransi parameter', '00:00:00', 0, 0, 0, 0.0, '-', 'setting parameter', '0078', '2021-07-27', 1, '0096'),
+(74, '20210829-001', '2021-08-29', '0270', 2, '53', '1', '7276-2468-3W', '20201212', 0, 0, 2, '\"10\"', 'Under cut area lock female cavity 2', 'Product tertekan oleh robot', 'Resetting robot', '00:00:00', 0, 0, 0, 0.0, '-', 'Setting robot', '0209', '2021-07-27', 1, '0274'),
+(75, '20210829-001', '2021-08-29', '0224', 2, '42', '1', '7176-0198-30', '20201214', 0, 0, 2, '\"2,8,14\"', 'Kontaminasi(short shoot, bubble,gate bolong)', 'Kontaminasi (Mix regrind material PPBF-8 lot 20201209)', 'Purging hot runner', '00:00:00', 0, 0, 0, 0.0, '-', 'Under analisa ', '0305', '2021-07-27', 1, '0233'),
+(76, '20210902-001', '2021-09-02', '0368', 2, '104', '1', '7276-0615-3W', '20201215', 0, 0, 1, '\"5\"', 'Terdapat flashing & step area P/L lock female cavity 1', 'Hasil repair Cavity 1 masih belum maksimal terdapat Flashing & Step area P/L lock female Cavity 1', 'Temporary judgement OK & Dilakukan  trimming inline.', '00:00:00', 0, 0, 0, 0.0, '-', 'Dibuatkan SPK, Repair mold', '0078', '2021-07-27', 1, '0065'),
+(77, '20210902-002', '2021-09-02', '0014', 3, '98', '1', '7276-0618-3W', '20201215', 0, 0, 2, '\"2,8\"', 'Short shoot area final filling & bubble area body', 'Gate tersumbat', 'Cleaning gate yang tesumbat', '00:00:00', 0, 0, 0, 0.0, '-', 'Cleaning gate', '0209', '2021-07-27', 1, '0096'),
+(78, '20210902-003', '2021-09-02', '0014', 3, '6', '5', '7271-6331-3W', '20201215', 180, 0, 2, '\"16\"', 'Jumping proses assy inline', 'New man power belum paham inspection instruction', 'Training on the spot kepada new man power', '00:00:00', 180, 180, 0, 0.5, 'OK', 'Training new man power', '0308', '2021-07-27', 1, '0231'),
+(79, '20210904-001', '2021-09-04', '0370', 1, '97', '1', '7276-0618-3W', '20201215', 0, 0, 1, '\"2,8\"', 'Bubble & short shoot area hinge', 'Mold flow & design problem', 'Perbaikan oleh setting parameter dan dilakukan monitoring QC', '00:00:00', 0, 0, 0, 0.0, '-', 'Under analisa', '0065', '2021-07-27', 1, '0209'),
+(80, '20210904-002', '2021-09-04', '0308', 2, '79', '1', '7176-2470-30', '20201215', 0, 0, 1, '\"10\"', 'Terdapat undercut di cavity 4 & cavity 2', 'Sub insert  macet', 'Running 3 cavity, gate cavity 2 di block', '00:00:00', 0, 0, 0, 0.0, '-', 'Undere analisa ', '0231', '2021-07-27', 1, '0305'),
+(81, '20210909-001', '2021-09-09', '0205', 1, '89', '18', '7185-0273-51', '20201216', 0, 0, 2, '\"12\"', 'Discolour all cavity terus menerus', 'Under analisa', 'Dibuatkan sample NG', '00:00:00', 0, 0, 0, 0.0, '-', 'Under analisa', '0231', '2021-07-27', 1, '0209'),
+(82, '20210914-001', '2021-09-14', '0014', 3, '93', '1', '7176-2479-30', '20201216', 0, 0, 1, '\"4\"', 'Excessive area clip cavity 3', 'Insert mold cavity 3 patah', 'Running 3 cavity ', '00:00:00', 0, 0, 0, 0.0, '-', 'Dibuatkan SPK, Repair mold', '0078', '2021-07-27', 1, '0065'),
+(83, '20210914-002', '2021-09-14', '0096', 1, '67', '1', '7176-2476-30', '20200401', 0, 0, 1, '\"5\"', 'Flashing area clip cavity 1 & 2', 'P/L tidak matching', 'Judgement QC \"OK\"', '00:00:00', 0, 0, 0, 0.0, '-', 'Dibuatkan SPK untuk repair mold ulang', '0078', '2021-07-27', 1, '0114'),
+(84, '20210914-003', '2021-09-14', '0008', 1, '60', '1', '7176-2272-30', '20200106', 3600, 0, 1, '\"5\"', 'Cav 4 area other', 'Touching P/L kurang/problem', 'Adjust Parameter ; Presure inject 1 diturunkan 75 ke 60 & Speed Inject diturunkan dari 17 ke 12', '00:00:00', 1820, 1820, 1780, 3.5, 'OK', '-', '0078', '2021-07-27', 1, '0065'),
+(85, '20210920-001', '2021-09-20', '0368', 1, '29', '5', '7176-4122-30', '20200108', 0, 0, 1, '\"8\"', 'Area female lock', 'Parameter belum fix , masih ditemukan NG di final saat Change point pertama lot 20191031', '- Setting parameter ulang (CP kedua lot 20200108)\r\n- Check mold diarea tersebut ada gasvent/tidak &lt;nunggu schedule untuk repair oleh mold enginering\r\n', '00:00:00', 0, 0, 0, 0.0, 'OK', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-27', 1, '0031'),
+(86, '20210920-002', '2021-09-20', '0096', 2, '11', '5', '7271-6331-3W', '20200109', 4500, 0, 2, '\"12\"', 'All cav', 'Salah penggunaan mesin (standar mesin 278# actual 207#)', 'Mixing material secara partial oleh leader dan dibuatkan limit sample oleh QC', '00:04:00', 0, 0, 4500, 0.0, 'OK', 'Next MO di m/c 278#', '0078', '2021-07-27', 1, '0065'),
+(87, '20210922-001', '2021-09-22', '0014', 3, '26', '1', '7276-2485-3W', '20200122', 2838, 0, 1, '\"4,14\"', 'Gate long cav 1 & Excessive hole cav 2', '- Lubang gate problem\r\n- Hot runner gate cavity1 kotor', 'Judgement NG by quality dan dilakukan trimming inline', '00:00:00', 0, 0, 2838, 0.0, '-', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-27', 1, '0065'),
+(88, '20210922-002', '2021-09-22', '0014', 3, '41', '1', '7276-2485-3W', '20200107', 0, 0, 1, '\"17\"', 'Awal dimensi 16.52 setelah 17 shoot/punch dimensi turun 15.94', '-', 'Stop karena mesin tidak stabil <sebelumnya>', '00:00:00', 0, 0, 0, 0.0, 'OK', 'Pergantian motor pengerak punch', '0078', '2021-07-27', 1, '0065'),
+(89, '20210925-001', '2021-09-25', '0008', 3, '15', '1', '7276-0616-3W', '20200124', 1344, 0, 1, '\"5,10\"', 'Cav 1 & 2', 'Insert clip tidak matching/PL aus', '- Temporary OK', '00:00:00', 0, 0, 1344, 0.0, 'OK', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-27', 1, '0065'),
+(90, '20210925-002', '2021-09-25', '0008', 1, '2', '1', '7276-3732-3W', '20200131', 3822, 0, 2, '\"18\"', 'Area hole cav 2 (srinkage)', 'Under analisa', 'Part yang deform dipisah dan di hold, Akan dilakukan trial proses assy setelah injection maksimal 3 hari, Dilakukan trial menggunakan parameter card yang lama <sebelum>', '00:00:00', 0, 0, 3822, 0.0, '-', '-', '0078', '2021-07-27', 1, '0065'),
+(91, '20210926-001', '2021-09-26', '0008', 3, '1', '1', '7276-3732-3W', '20200131', 3276, 0, 1, '\"18\"', 'Hole collar cav 2', 'Terjadimya penyusutan dimensi', '- Part dipending /dipisahkan <tidak>\r\n- Dilakukan trial menggunakan parameter card yang lama &lt;sebelum reduce cooling time', '00:00:00', 0, 0, 3276, 0.0, '-', '-', '0078', '2021-07-27', 1, '0065'),
+(92, '20210926-002', '2021-09-26', '0014', 2, '47', '1', '7276-2484-3W', '20200217', 2160, 0, 1, '\"8\"', 'Area final filling (ditemukan diawal running setelah first sample)', 'Gate mampet/tersumbat material yang kering', 'Monitoring QC dan part di hold 90 pcs', '00:00:00', 0, 0, 2160, 0.0, '-', '-', '0078', '2021-07-27', 1, '0114'),
+(93, '20210926-003', '2021-09-26', '0008', 1, '36', '1', '7276-0615-3W', '20200215', 2808, 0, 2, '\"8\"', 'Ditemukan dipertengahan running (final filling)', '-', '- Re-setting screw material dari 65 ke 68\r\n- Part di hold 54 pcs', '00:00:00', 0, 0, 2808, 0.0, '-', '-', '0231', '2021-07-27', 1, '0114'),
+(94, '20210928-001', '2021-09-28', '0368', 2, '74', '5', '7171-6334-30', '20200106', 10800, 0, 2, '\"7\"', 'Marking date lock di part rusak (date tidak berbentuk)', '- Date lock pada mold kotor   \r\n- Suhu cavity terlalu panas (mold & material)', 'Mold turun, repair oleh Mold Enginer (cleaning mold) & monitoring oleh QC', '00:00:00', 0, 0, 10800, 0.0, 'OK', '-', '0078', '2021-07-27', 1, '0065'),
+(95, '20210929-001', '2021-09-29', '0013', 1, '29', '5', '7176-4122-30', '20200108', 5610, 0, 1, '\"8\"', 'Area female lock', 'Parameter belum fix , masih ditemukan NG di final saat Change point pertama lot 20191031', '- Setting parameter ulang (CP kedua lot 20200108) \r\n - Check mold diarea tersebut ada gasvent/tidak <nunggu>', '00:00:00', 0, 0, 5610, 0.0, 'OK', 'Dibuatkan SPK untuk repair mold', '0078', '2021-07-27', 1, '0277'),
+(96, '20210929-002', '2021-09-29', '0009', 2, '5', '5', '7271-6331-3W', '20200109', 4500, 0, 2, '\"12\"', 'All cav', 'Salah penggunaan mesin (standar mesin 278# actual 207#)', 'Mixing material secara partial oleh leader dan dibuatkan limit sample oleh QC', '00:00:00', 0, 0, 4500, 0.0, 'OK', 'Next MO di m/c 278#', '0078', '2021-07-27', 1, '0065'),
+(97, '20210930-001', '2021-09-30', '0013', 1, '76', '19', '7173-4799-30', '20200111', 1740, 0, 2, '\"4\"', '-', '1. Sebelumnya running part 6331 (PPBF970AI) dan 6335 (PBT)\r\n2. Kemungkinan cleaning hooper kurang maksimal', 'material dan cleaning/kuras hooper ulang & lanjut produksi monitoring QC', '00:00:00', 0, 0, 1740, 0.0, 'OK', '-', '0078', '2021-07-27', 1, '0065'),
+(98, '20210930-002', '2021-09-30', '0368', 2, '30', '1', '7176-2483-30', '20200115', 2240, 0, 1, '\"2,8\"', '-', 'Cushion + charging time tidak stabil', 'Monitoring QC, part hasil produksi tidak di hold karena output sedikit (awal jalan)', '00:00:00', 0, 0, 2240, 0.0, 'OK', '- Follow up ke mold maker/Haitian oleh Edi ME, Plan Action : Cek backflow', '0065', '2021-07-27', 1, '0031'),
+(99, '20211003-001', '2021-10-03', '0229', 2, '18', '19', '7273-4796-3W', '20200114', 0, 0, 2, '\"4\"', '-', 'Layer habis ', 'Karena layer tidak kembali after final dan belum ada tempat khusus untuk layer', '00:00:00', 0, 0, 0, 0.0, 'OK', 'Pembuatan tempat khusus untuk layer di area samping before steam room ', '0078', '2021-07-27', 1, '0114'),
+(100, '20211005-001', '2021-10-05', '0096', 1, '61', '1', '7176-2272-30', '20200127', 4340, 0, 1, '\"8\"', 'Short shoot', 'Gate mampet karena kontaminasi material', 'Hold material tersebut & monitoring QC', '00:00:00', 0, 0, 4340, 0.0, 'OK', '-', '0209', '2021-07-27', 1, '0277');
 
 -- --------------------------------------------------------
 
@@ -985,7 +1110,7 @@ CREATE TABLE `user_admin` (
 
 INSERT INTO `user_admin` (`userid`, `nama`, `email`, `password`, `last_login`, `login_from`, `level`, `cookie`, `deskripsi`) VALUES
 (1, 'Ardy Priyo Sudiyantoko', 'priyo.ardy@schlemmer.co.id', '$2y$10$Xot5bM4acinAW9RkHOPf/.JLNSz/7caI8BVYR6ncUepz2Ie6iESAe', '2021-07-31 08:26:26', '::1', '0', '', NULL),
-(2, 'Rahmat Hidayat', 'real.rahmathidayat@gmail.com', '$2y$10$x.4mN3hWr4A4yddt3xQNsOxsIfogT4IJEx.pEqoAIWDBTtpyRuP/S', '2021-07-23 08:12:32', '::1', '0', '', 'Administrator');
+(2, 'Rahmat Hidayat', 'real.rahmathidayat@gmail.com', '$2y$10$x.4mN3hWr4A4yddt3xQNsOxsIfogT4IJEx.pEqoAIWDBTtpyRuP/S', '2021-07-27 08:09:10', '::1', '0', '', 'Administrator');
 
 --
 -- Indexes for dumped tables
@@ -1020,6 +1145,12 @@ ALTER TABLE `material`
 --
 ALTER TABLE `mesin`
   ADD PRIMARY KEY (`id`,`no_mesin`);
+
+--
+-- Indexes for table `periode`
+--
+ALTER TABLE `periode`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `project`
@@ -1059,7 +1190,7 @@ ALTER TABLE `abnormality_type`
 -- AUTO_INCREMENT for table `defect_list`
 --
 ALTER TABLE `defect_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `karyawan`
@@ -1080,6 +1211,12 @@ ALTER TABLE `mesin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
+-- AUTO_INCREMENT for table `periode`
+--
+ALTER TABLE `periode`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
@@ -1095,7 +1232,7 @@ ALTER TABLE `satuan`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `user_admin`

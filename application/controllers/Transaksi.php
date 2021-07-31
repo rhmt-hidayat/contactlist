@@ -19,6 +19,7 @@
         {
             $data['judul'] = "S-INA | Contact List Transaction";
             $data['data'] = $this->M_master->loadTransaksi();
+            $data['type'] = $this->M_master->loadType();
             $data['defect'] = $this->M_master->loadDefect();
             $this->load->view('Include/header', $data);
             $this->load->view('Include/sidebar');
@@ -103,6 +104,7 @@
             $reported = $this->input->post('reported');
             $finish = $this->input->post('finish');
             $verified = $this->input->post('verified');
+            $status = $this->input->post('status');
 
             $data = array(
                 'kode' => $kode,
@@ -129,7 +131,7 @@
                 'longterm' => $longterm,
                 'improvement' => $reported,
                 'finish' => $finish,
-                'status' => 'Close',
+                'status' => $status,
                 'verified' => $verified,
             );
             // var_dump($data);
@@ -179,6 +181,7 @@
                     $reported       = $baris->improvement;
                     $finish         = $baris->finish;
                     $verified       = $baris->verified;
+                    $status         = $baris->status;
                     
                 }
 
@@ -208,7 +211,7 @@
                     'longterm'        => $longterm,
                     'improvement'     => $reported,
                     'finish'          => $finish,
-                    'status'          => 'Close',
+                    'status'          => $status,
                     'verified'        => $verified,
                 );
                 $data['judul'] = "S-INA | Edit Contact List";
@@ -260,6 +263,7 @@
             $reported = $this->input->post('reported');
             $finish = $this->input->post('finish');
             $verified = $this->input->post('verified');
+            $status = $this->input->post('status');
 
             $data = array(
                 'kode' => $kode,
@@ -286,7 +290,7 @@
                 'longterm' => $longterm,
                 'improvement' => $reported,
                 'finish' => $finish,
-                'status' => 'Close',
+                'status' => $status,
                 'verified' => $verified,
             );
 

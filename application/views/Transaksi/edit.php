@@ -172,7 +172,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Abnormal Situation Description</label>
-                                                    <textarea class="form-control" name="abnormal" value="<?php echo $edit['situation'] ?>" required></textarea>
+                                                    <input class="form-control" name="abnormal" value="<?php echo $edit['situation'] ?>" required></input>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Root Couse</label>
@@ -210,7 +210,7 @@
                                                         </div>
                                                         <div class="col-4">
                                                             <label class="control-label">Result</label>
-                                                            <input type="number" class="form-control" required name="result" value="<?php echo $edit['result'] ?>">
+                                                            <input type="text" class="form-control" required name="result" value="<?php echo $edit['result'] ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -241,18 +241,32 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Verified By</label>
-                                                    <select name="verified" class="form-control select2bs4" required>
-                                                        <option value="">-- Select Data --</option>
-                                                        <?php
-                                                            foreach($karyawan as $kry)
-                                                            {
-                                                                ?>
-                                                                    <option value="<?php echo $kry->NIK ?>" <?php if($edit['verified'] == $kry->NIK){ ?> selected <?php } ?>><?php echo $kry->NIK." - ".$kry->nama; ?></option>
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <label class="control-label">Verified By</label>
+                                                            <select name="verified" class="form-control select2bs4" required>
+                                                                <option value="">-- Select Data --</option>
                                                                 <?php
-                                                            }
-                                                        ?>
-                                                    </select>
+                                                                    foreach($karyawan as $kry)
+                                                                    {
+                                                                        ?>
+                                                                            <option value="<?php echo $kry->NIK ?>" <?php if($edit['verified'] == $kry->NIK){ ?> selected <?php } ?>><?php echo $kry->NIK." - ".$kry->nama; ?></option>
+                                                                        <?php
+                                                                    }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-4">
+                                                        <label class="control-label">Status</label>
+                                                        <select name="status" class="form-control select2bs4" required>
+                                                            <option value="">-- Select Status --</option>
+                                                            <option value="1" <?php if($edit['status'] == '1'){ ?> selected <?php } ?>>Open</option>
+                                                            <option value="2" <?php if($edit['status'] == '2'){ ?> selected <?php } ?>>On Progress</option>
+                                                            <option value="3" <?php if($edit['status'] == '3'){ ?> selected <?php } ?>>Monitoring</option>
+                                                            <option value="0" <?php if($edit['status'] == '0'){ ?> selected <?php } ?>>Close</option>
+                                                        </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
