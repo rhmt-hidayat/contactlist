@@ -188,6 +188,7 @@
                 $mesin = $this->input->post('form_mesin');
                 $reported = $this->input->post('form_reported');
                 $status = $this->input->post('form_status');
+                // var_dump($project);
 
                 if($kriteria == '1'){
                     $data['laporan'] = $this->laporanProject($project);
@@ -617,6 +618,7 @@
         function laporanProject($project)
         {
             $result = $this->M_transaksi->getProject($project);
+            // var_dump($result);
             if(count($result) > 0)
             {
                 return $result;

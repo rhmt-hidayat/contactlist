@@ -42,6 +42,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url().'Total'; ?>" class="nav-link">
+                                <i class="nav-icon fas fa-chart-line"></i>
+                                <p>
+                                    Laporan Total Contact List
+                                </p>
+                            </a>
+                        </li>
                         <?php
                             if($this->session->userdata('level') == '0')
                             {

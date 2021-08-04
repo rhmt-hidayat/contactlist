@@ -45,7 +45,7 @@
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal',$tanggal);
-            $this->db->group_by('transaksi.project', $project);
+            $this->db->where('transaksi.project', $project);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -61,7 +61,7 @@
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal',$tanggal);
-            $this->db->group_by('transaksi.poduct_drawing', 'desc', $material);
+            $this->db->where('transaksi.poduct_drawing', 'desc', $material);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -77,7 +77,7 @@
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal',$tanggal);
-            $this->db->group_by('transaksi.machine_no', 'desc', $mesin);
+            $this->db->where('transaksi.machine_no', 'desc', $mesin);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -93,7 +93,7 @@
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal',$tanggal);
-            $this->db->group_by('transaksi.reported', 'desc', $reported);
+            $this->db->where('transaksi.reported', 'desc', $reported);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -109,7 +109,7 @@
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal',$tanggal);
-            $this->db->group_by('transaksi.status', 'desc', $status);
+            $this->db->where('transaksi.status', 'desc', $status);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -142,7 +142,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl1);
             $this->db->where('transaksi.tanggal <=',$tgl2);
-            $this->db->group_by('transaksi.project', $project);
+            $this->db->where('transaksi.project', $project);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -159,7 +159,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl1);
             $this->db->where('transaksi.tanggal <=',$tgl2);
-            $this->db->group_by('transaksi.poduct_drawing', 'desc', $material);
+            $this->db->where('transaksi.poduct_drawing', 'desc', $material);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -176,7 +176,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl1);
             $this->db->where('transaksi.tanggal <=',$tgl2);
-            $this->db->group_by('transaksi.machine_no', 'desc', $mesin);
+            $this->db->where('transaksi.machine_no', 'desc', $mesin);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -193,7 +193,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl1);
             $this->db->where('transaksi.tanggal <=',$tgl2);
-            $this->db->group_by('transaksi.reported', 'desc', $reported);
+            $this->db->where('transaksi.reported', 'desc', $reported);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -210,7 +210,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl1);
             $this->db->where('transaksi.tanggal <=',$tgl2);
-            $this->db->group_by('transaksi.status', 'desc', $status);
+            $this->db->where('transaksi.status', 'desc', $status);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -243,7 +243,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('MONTH(transaksi.tanggal)', $bulan);
             $this->db->where('YEAR(transaksi.tanggal)', $tahun);
-            $this->db->group_by('transaksi.project', $project);
+            $this->db->where('transaksi.project', $project);
             $this->db->order_by('transaksi.id', 'ASC');
             
             return $this->db->get()->result();
@@ -260,7 +260,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('MONTH(transaksi.tanggal)', $bulan);
             $this->db->where('YEAR(transaksi.tanggal)', $tahun);
-            $this->db->group_by('transaksi.poduct_drawing', 'desc', $material);
+            $this->db->where('transaksi.poduct_drawing', 'desc', $material);
             $this->db->order_by('transaksi.id', 'ASC');
             
             return $this->db->get()->result();
@@ -277,7 +277,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('MONTH(transaksi.tanggal)', $bulan);
             $this->db->where('YEAR(transaksi.tanggal)', $tahun);
-            $this->db->group_by('transaksi.machine_no', 'desc', $mesin);
+            $this->db->where('transaksi.machine_no', 'desc', $mesin);
             $this->db->order_by('transaksi.id', 'ASC');
             
             return $this->db->get()->result();
@@ -294,7 +294,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('MONTH(transaksi.tanggal)', $bulan);
             $this->db->where('YEAR(transaksi.tanggal)', $tahun);
-            $this->db->group_by('transaksi.reported', 'desc', $reported);
+            $this->db->where('transaksi.reported', 'desc', $reported);
             $this->db->order_by('transaksi.id', 'ASC');
             
             return $this->db->get()->result();
@@ -311,7 +311,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('MONTH(transaksi.tanggal)', $bulan);
             $this->db->where('YEAR(transaksi.tanggal)', $tahun);
-            $this->db->group_by('transaksi.status', 'desc', $status);
+            $this->db->where('transaksi.status', 'desc', $status);
             $this->db->order_by('transaksi.id', 'ASC');
             
             return $this->db->get()->result();
@@ -344,7 +344,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl_periode1);
             $this->db->where('transaksi.tanggal <=',$tgl_periode2);
-            $this->db->group_by('transaksi.project', $project);
+            $this->db->where('transaksi.project', $project);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -361,7 +361,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl_periode1);
             $this->db->where('transaksi.tanggal <=',$tgl_periode2);
-            $this->db->group_by('transaksi.poduct_drawing', 'desc', $material);
+            $this->db->where('transaksi.poduct_drawing', 'desc', $material);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -378,7 +378,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl_periode1);
             $this->db->where('transaksi.tanggal <=',$tgl_periode2);
-            $this->db->group_by('transaksi.machine_no', 'desc', $mesin);
+            $this->db->where('transaksi.machine_no', 'desc', $mesin);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -395,7 +395,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl_periode1);
             $this->db->where('transaksi.tanggal <=',$tgl_periode2);
-            $this->db->group_by('transaksi.reported', 'desc', $reported);
+            $this->db->where('transaksi.reported', 'desc', $reported);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -412,7 +412,7 @@
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
             $this->db->where('transaksi.tanggal >=',$tgl_periode1);
             $this->db->where('transaksi.tanggal <=',$tgl_periode2);
-            $this->db->group_by('transaksi.status', 'desc', $status);
+            $this->db->where('transaksi.status', 'desc', $status);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -433,9 +433,9 @@
             $this->db->join('karyawan as user1', 'transaksi.reported = user1.NIK', 'LEFT');
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
-            $this->db->GROUP_BY('transaksi.project', $project);
+            $this->db->where('transaksi.project', $project);
             $this->db->order_by('transaksi.id', 'ASC');
-
+            
             return $this->db->get()->result();
         }
         function getMaterial($material)
@@ -447,7 +447,7 @@
             $this->db->join('karyawan as user1', 'transaksi.reported = user1.NIK', 'LEFT');
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
-            $this->db->group_by('transaksi.product_drawing', $material);
+            $this->db->where('transaksi.product_drawing', $material);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -461,7 +461,7 @@
             $this->db->join('karyawan as user1', 'transaksi.reported = user1.NIK', 'LEFT');
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
-            $this->db->group_by('transaksi.machine_no', $mesin);
+            $this->db->where('transaksi.machine_no', $mesin);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -475,7 +475,7 @@
             $this->db->join('karyawan as user1', 'transaksi.reported = user1.NIK', 'LEFT');
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
-            $this->db->group_by('transaksi.reported', $reported);
+            $this->db->where('transaksi.reported', $reported);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
@@ -489,9 +489,32 @@
             $this->db->join('karyawan as user1', 'transaksi.reported = user1.NIK', 'LEFT');
             $this->db->join('karyawan as user2', 'transaksi.improvement = user2.NIK', 'LEFT');
             $this->db->join('karyawan as user3', 'transaksi.verified = user3.NIK', 'LEFT');
-            $this->db->group_by('transaksi.status', $status);
+            $this->db->where('transaksi.status', $status);
             $this->db->order_by('transaksi.id', 'ASC');
 
             return $this->db->get()->result();
+        }
+
+        function getCountProject($project, $tanggal)
+        {
+            $data = $this->db->query("SELECT A.product_drawing, A.project, IFNULL(COUNT(A.product_drawing),0) as 'Semua', ( SELECT IFNULL(COUNT(B.product_drawing),0) FROM transaksi AS B WHERE B.status ='1' AND B.project = '$project' AND (B.product_drawing = A.product_drawing AND B.project = A.project) GROUP BY B.product_drawing, B.project ) AS 'Open', ( SELECT IFNULL(COUNT(C.product_drawing),0) FROM transaksi AS C WHERE C.status IN('2','3') AND C.project = '$project' AND (C.product_drawing = A.product_drawing AND C.project = A.project) GROUP BY C.product_drawing, C.project ) AS 'OnGoing', ( SELECT IFNULL(COUNT(D.product_drawing),0) FROM transaksi AS D WHERE D.status ='0' AND D.project = '$project' AND (D.product_drawing = A.product_drawing AND D.project = A.project) GROUP BY D.product_drawing, D.project ) AS 'Close' FROM transaksi AS A WHERE A.project = '$project' AND tanggal <= '$tanggal' GROUP BY A.product_drawing, A.project");
+            $hasil = $data->result();
+            return $hasil;
+        }
+
+        function getGrafik($project, $tanggal)
+        {
+            // $this->db->group_by('product_drawing');
+            // $this->db->select('product_drawing');
+            // $this->db->select("count(kode) as CountCase");
+            // $this->db->where('transaksi.project', $project);
+            // $this->db->where('transaksi.tanggal <=',$tanggal);
+            // return $this->db->from('transaksi')
+            //     ->get()
+            //     ->result();
+
+            $data = $this->db->query("SELECT A.product_drawing, A.project, IFNULL(COUNT(A.product_drawing),0) as 'Semua', ( SELECT IFNULL(COUNT(B.product_drawing),0) FROM transaksi AS B WHERE B.status ='1' AND B.project = '$project' AND (B.product_drawing = A.product_drawing AND B.project = A.project) GROUP BY B.product_drawing, B.project ) AS 'Open', ( SELECT IFNULL(COUNT(C.product_drawing),0) FROM transaksi AS C WHERE C.status IN('2','3') AND C.project = '$project' AND (C.product_drawing = A.product_drawing AND C.project = A.project) GROUP BY C.product_drawing, C.project ) AS 'OnGoing', ( SELECT IFNULL(COUNT(D.product_drawing),0) FROM transaksi AS D WHERE D.status ='0' AND D.project = '$project' AND (D.product_drawing = A.product_drawing AND D.project = A.project) GROUP BY D.product_drawing, D.project ) AS 'Close' FROM transaksi AS A WHERE A.project = '$project' AND tanggal <= '$tanggal' GROUP BY A.product_drawing, A.project");
+            $hasil = $data->result();
+            return $hasil;
         }
     }
